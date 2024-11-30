@@ -1,6 +1,6 @@
 package com.femas.belajar.controller;
 import com.femas.belajar.Router;
-import com.femas.belajar.domain.User;
+import com.femas.belajar.entity.User;
 import com.femas.belajar.repository.UserRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

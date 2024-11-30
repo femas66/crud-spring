@@ -1,4 +1,4 @@
-package com.femas.belajar.domain;
+package com.femas.belajar.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;

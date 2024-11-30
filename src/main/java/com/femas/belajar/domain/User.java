@@ -1,17 +1,18 @@
-package com.femas.belajar;
+package com.femas.belajar.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
+@Table(name = "user")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
+    @Column(nullable = false, name = "name")
     private String name;
+
+    @Column(nullable = false, name = "email")
     private String email;
 
     public Integer getId() {

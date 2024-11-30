@@ -1,10 +1,10 @@
 package com.femas.belajar;
-import org.springframework.stereotype.Controller;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 
-@Controller
-@RequestMapping(path = "/user")
+@RestController
+@RequestMapping(path = Router.API_PREFIX)
 public class MainController {
     private final UserRepository userRepository;
 
@@ -12,7 +12,8 @@ public class MainController {
         this.userRepository = userRepository;
     }
 
-    @PostMapping(path = "/add")
+    @PostMapping(path = Router.USERS)
+    @ResponseStatus(HttpStatus.CREATED)
     public @ResponseBody String addUser(@RequestParam String name, @RequestParam String email) {
         User user = new User();
         user.setName(name);
@@ -21,25 +22,27 @@ public class MainController {
         return "success";
     }
 
-    @GetMapping(path = "/all")
+    @GetMapping(path = Router.USERS)
+    @ResponseStatus(HttpStatus.OK)
     public @ResponseBody Iterable<User> getAllUsers() {
         return userRepository.findAll();
     }
 
-    @PutMapping(path = "/update")
-    public @ResponseBody String updateUser(@RequestParam String id, @RequestParam String name, @RequestParam String email) {
+    @PutMapping(path = Router.USERS + "/{id}")
+    public @ResponseBody String updateUser(@PathVariable Integer id, @RequestParam String name, @RequestParam String email) {
         User user = new User();
-        user.setId(Integer.parseInt(id));
+        user.setId(id);
         user.setName(name);
         user.setEmail(email);
         userRepository.save(user);
         return "Berhasil update";
     }
 
-    @DeleteMapping(path = "/delete")
-    public @ResponseBody String deleteUser(@RequestParam String id) {
+    @DeleteMapping(path = Router.USERS + "/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public @ResponseBody String deleteUser(@PathVariable Integer id) {
         User user = new User();
-        user.setId(Integer.parseInt(id));
+        user.setId(id);
         userRepository.delete(user);
         return "success delete";
     }
